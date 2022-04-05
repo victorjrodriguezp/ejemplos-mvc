@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="return enviarFormulario()">
+        <label for="">Nombre</label>
+        <input type="text" id="name" required>
+        <button type="submit">Enviar</button>
+    </form>
+    
+    <!-- JQuery -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+
+    <script>
+        function enviarFormulario() {
+            var nombre = $('#name').val(); // se lee el valor del imput
+
+            $.ajax({
+                type: "POST",
+                url: "backend.php",
+                data: { "nombre": nombre },
+                success:  function(data) {
+                    console.log(data);
+                    alert(data); // muestro la respuesta del backend en una alerta
+                },
+                error: function(xhr, status, error){
+            alert("Error!" + error);
+        },
+            });
+
+            return false; // previente que el formulario se rediccione o recarge
+        }
+    </script>
+</body>
+</html>
